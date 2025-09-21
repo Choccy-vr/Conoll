@@ -127,6 +127,11 @@ class UserService {
       RoomService.addUserToRoom(roomId: gradeRoomId.toString(), userId: id);
     }
 
+    // Add user to all class rooms
+    for (final classObj in classes) {
+      RoomService.addUserToRoom(roomId: classObj.room.toString(), userId: id);
+    }
+
     // Give the database a moment to process the insert
     await Future.delayed(Duration(milliseconds: 100));
     final userId = Conoll_User.fromJson(response[0]).id;
