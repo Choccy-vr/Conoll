@@ -5,7 +5,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import 'services/supabase/auth/Auth.dart';
 import 'services/supabase/auth/auth_listener.dart';
 import 'package:conoll/pages/Home_Page.dart';
-import 'package:conoll/pages/Login/Login_page.dart';
+import 'package:conoll/pages/Login/Login_Page.dart';
 
 const supabaseUrl = 'https://gdsgkuokgxtcqdjndxin.supabase.co';
 const supabaseKey =
