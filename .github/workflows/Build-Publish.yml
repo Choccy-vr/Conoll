@@ -33,7 +33,7 @@ jobs:
         run: flutter pub get
 
       - name: Build web
-        run: flutter build web --release --base-href "/conoll/"
+        run: flutter build web --release --base-href "/Conoll/"
 
       - name: Add 404 fallback for SPA routing
         run: cp build/web/index.html build/web/404.html
