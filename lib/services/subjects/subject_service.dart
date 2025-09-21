@@ -59,4 +59,31 @@ class SubjectService {
       throw Exception('Error creating subject: $e');
     }
   }
+
+  static Future<Conoll_Subject> joinSubject({required int subjectId}) async {
+    try {
+      final subject = await getSubjectById(subjectId);
+      if (subject == null) {
+        throw Exception('Subject with id $subjectId not found');
+      }
+      await SupabaseDB.CallDBFunction(
+        functionName: 'add-user-subject',
+        parameters: {
+          'user_id': UserService.currentUser?.id ?? '',
+          'subject': subjectId,
+        },
+      );
+      await RoomService.addUserToRoom(
+        roomId: subject.room.toString(),
+        userId: UserService.currentUser?.id ?? '',
+      );
+      final response = await SupabaseDB.GetRowData(
+        table: 'subjects',
+        rowID: subjectId,
+      );
+      return Conoll_Subject.fromJson(response);
+    } catch (e) {
+      throw Exception('Error joining subject: $e');
+    }
+  }
 }

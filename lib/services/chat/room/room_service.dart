@@ -43,7 +43,7 @@ class RoomService {
     }
   }
 
-  static void addUserToRoom({
+  static Future<void> addUserToRoom({
     required String roomId,
     required String userId,
   }) async {

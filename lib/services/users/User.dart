@@ -1,5 +1,8 @@
 import 'package:conoll/services/chat/room/room_service.dart';
 import 'package:conoll/services/classes/Conoll_Class.dart';
+import 'package:conoll/services/classes/class_service.dart';
+import 'package:conoll/services/subjects/Conoll_Subject.dart';
+import 'package:conoll/services/subjects/subject_service.dart';
 
 import '/services/supabase/DB/supabase_db.dart';
 import 'Conoll_User.dart';
@@ -93,7 +96,7 @@ class UserService {
     // Store class IDs as strings for DB compatibility
     final classIds = classes.map((c) => c.id.toString()).toList();
     final handle = username.toLowerCase().replaceAll(' ', '-');
-
+    List<Conoll_Subject> userSubjects = [];
     final response = await SupabaseDB.InsertAndReturnData(
       table: 'users',
       data: {
@@ -127,9 +130,17 @@ class UserService {
       RoomService.addUserToRoom(roomId: gradeRoomId.toString(), userId: id);
     }
 
-    // Add user to all class rooms
+    // Add user to all classes
     for (final classObj in classes) {
-      RoomService.addUserToRoom(roomId: classObj.room.toString(), userId: id);
+      ClassService.joinClass(classId: classObj.id);
+      userSubjects.add(
+        await SubjectService.getSubjectById(classObj.subjectId)
+            as Conoll_Subject,
+      );
+    }
+
+    for (final subject in userSubjects) {
+      SubjectService.joinSubject(subjectId: int.parse(subject.id));
     }
 
     // Give the database a moment to process the insert
