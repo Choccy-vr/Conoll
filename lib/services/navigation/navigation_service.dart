@@ -1,13 +1,12 @@
 import 'package:conoll/services/chat/room/Room.dart';
 import 'package:flutter/material.dart';
 import 'package:animations/animations.dart';
-import '/animations/Shared_Axis.dart';
-import '/services/dialog/dialog_service.dart';
+import 'package:conoll/animations/Shared_Axis.dart';
 
-import '/pages/Login/Login_Page.dart';
-import '/pages/Login/SignUp_Page.dart';
-import '/pages/Home_Page.dart';
-import '/pages/Chat/Chat_Page.dart';
+import 'package:conoll/pages/Login/Login_Page.dart';
+import 'package:conoll/pages/Login/SignUp_Page.dart';
+import 'package:conoll/pages/Home_Page.dart';
+import 'package:conoll/pages/Chat/Chat_page.dart';
 
 enum AppDestination { login, signup, home }
 
